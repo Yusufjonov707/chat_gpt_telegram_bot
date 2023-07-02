@@ -13,7 +13,7 @@ class TelegramController extends Controller
         $message = $input['message'];
         $chat_id = $message['chat']['id'];
         $text = $message['text'];
-
+        
         if($text == '/start')
         {
             $text = "hello";
@@ -76,8 +76,13 @@ class TelegramController extends Controller
             $json_response = $response;
             $decoded_response = json_decode($json_response, true);
             $message = $decoded_response['choices'][0]['message']['content'];
-        
+            
+            if(empty($message)){
+                $message = "The server is busy now, try later!";
+            }
+            
             return $message;
+
         }
     }
 }
