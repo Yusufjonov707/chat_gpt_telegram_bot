@@ -75,10 +75,10 @@ class TelegramController extends Controller
         {
             $json_response = $response;
             $decoded_response = json_decode($json_response, true);
-            $message = $decoded_response['choices'][0]['message']['content'];
-            
-            if(empty($message)){
-                $message = "The server is busy now, try later!";
+            if (isset($decoded_response['choices'])) {
+                $message = $decoded_response['choices'][0]['message']['content'];
+            } else {
+                $message = "Too Many Requests, try later";
             }
             
             return $message;
